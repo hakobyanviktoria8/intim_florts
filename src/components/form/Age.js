@@ -1,7 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Box, Typography, styled } from "@mui/material";
 import { generateOptions, generateYearOptions } from "../../helpers/DateUtils";
 import { FormControlComp } from "../common/FormControlComp";
+import { ButtonNext } from "../common/ButtonNext";
+import { ErrorMessage } from "../common/ErrorMessage";
+import { ButtonComp } from "../common/ButtonComp";
+
+import { useDispatch, useSelector } from "react-redux";
+import { addField } from "../../features/userDataSlice";
+import { next, back } from "../../features/activeStepSlice";
+import { addErrorMessage } from "../../features/errorMessageSlice";
 
 const AgeDataBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up("sm")]: {
@@ -10,8 +18,9 @@ const AgeDataBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const Age = ({ handleFormChange }) => {
+export const Age = () => {
   const [ageData, setAgeData] = useState({ day: "", month: "", year: "" });
+  const { day, month, year } = ageData;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,14 +30,26 @@ export const Age = ({ handleFormChange }) => {
     }));
   };
 
-  useEffect(() => {
-    const { day, month, year } = ageData;
+  const errorMessage = useSelector((state) => state.errorMessage?.value);
+  const dispatch = useDispatch();
+
+  const handleNext = () => {
     if (day && month && year) {
-      const formattedDob = `${year}-${month}-${day}`;
-      handleFormChange("DOB", formattedDob);
+      try {
+        const formattedDob = `${year}-${month}-${day}`;
+        dispatch(addField({ DOB: formattedDob }));
+        dispatch(next());
+        dispatch(addErrorMessage(""));
+      } catch (error) {
+        dispatch(addErrorMessage(error?.response?.data?.Error?.message));
+      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ageData]);
+  };
+
+  const handleBack = () => {
+    dispatch(back());
+    dispatch(addErrorMessage(""));
+  };
 
   return (
     <Box>
@@ -68,6 +89,24 @@ export const Age = ({ handleFormChange }) => {
           id="year-select"
         />
       </AgeDataBox>
+
+      {errorMessage && <ErrorMessage />}
+
+      <ButtonNext
+        onClick={handleNext}
+        text="Next"
+        disabled={!day || !month || !year || !!errorMessage}
+      />
+      <ButtonComp
+        sx={{
+          mb: 3,
+          textAlign: "center",
+          width: "100%",
+        }}
+        variant="body1"
+        onClick={handleBack}
+        text="Back"
+      />
     </Box>
   );
 };
