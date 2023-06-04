@@ -37,13 +37,13 @@ export const FormComp = () => {
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <Username />;
+        return <Gender />;
       case 1:
         return <Age />;
       case 2:
         return <Location />;
       case 3:
-        return <Gender />;
+        return <Username />;
       case 4:
         return <Password />;
       case 5:

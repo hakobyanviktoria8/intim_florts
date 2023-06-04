@@ -1,39 +1,39 @@
 import React, { useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import { Input } from "../common/Input";
 import { ButtonComp } from "../common/ButtonComp";
 import axios from "axios";
+import useDebounce from "../../hooks/useDebounce";
 
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addField } from "../../features/userDataSlice";
 import { addErrorMessage } from "../../features/errorMessageSlice";
-
 import { next } from "../../features/activeStepSlice";
+import { ErrorMessage } from "../common/ErrorMessage";
 
 export const Username = () => {
   const [username, setUsername] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const apiUrl = process.env.REACT_APP_API_URL;
 
   const dispatch = useDispatch();
-  const userData = useSelector((state) => state.userData?.value);
   const errorMessage = useSelector((state) => state.errorMessage?.value);
+
+  const regex = /^[a-zA-Z0-9_]{0,12}$/;
+  const debouncedUsername = useDebounce(username, 500, regex);
 
   const handleChange = (e) => {
     const value = e.target.value;
-    const regex = /^[a-zA-Z0-9_]{0,12}$/;
-    if (regex.test(value)) {
-      setUsername(value);
-    }
+    setUsername(value);
   };
 
   const fetchData = async () => {
-    dispatch(addField({ username: username }));
-
     try {
+      setIsLoading(true);
+
       const response = await axios.post(
         `${apiUrl}/start`,
-        { username: userData.username },
+        { username: debouncedUsername },
         {
           params: {
             site_key: "no01",
@@ -41,23 +41,25 @@ export const Username = () => {
         }
       );
       if (response?.data.Status === "ok") {
-        console.log(22222222, response?.data);
         localStorage.setItem("uid", response?.data.Data);
         dispatch(next());
         dispatch(addErrorMessage(""));
       }
     } catch (error) {
-      console.log(111111111, error?.response?.data);
       if (error?.response?.data.Status === "fail") {
         dispatch(addErrorMessage(error?.response?.data?.Error?.message));
         localStorage.removeItem("uid");
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleNext = () => {
-    console.log("next_________");
-    fetchData();
+    if (debouncedUsername) {
+      dispatch(addField({ username: debouncedUsername }));
+      fetchData();
+    }
   };
 
   return (
@@ -73,10 +75,14 @@ export const Username = () => {
         type="text"
       />
 
+      {errorMessage && <ErrorMessage />}
+
       <ButtonComp
         onClick={handleNext}
-        text="Next"
-        // disabled={false}
+        text={
+          isLoading ? <CircularProgress size={20} color="primary" /> : "Next"
+        }
+        disabled={!username || !!errorMessage || isLoading}
         sx={{
           mt: 3,
           mb: 2,
