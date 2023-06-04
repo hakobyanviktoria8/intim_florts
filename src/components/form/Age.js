@@ -4,12 +4,12 @@ import { generateOptions, generateYearOptions } from "../../helpers/DateUtils";
 import { FormControlComp } from "../common/FormControlComp";
 import { ButtonNext } from "../common/ButtonNext";
 import { ErrorMessage } from "../common/ErrorMessage";
-import { ButtonComp } from "../common/ButtonComp";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addField } from "../../features/userDataSlice";
 import { next, back } from "../../features/activeStepSlice";
 import { addErrorMessage } from "../../features/errorMessageSlice";
+import { ButtonBack } from "../common/ButtonBack";
 
 const AgeDataBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up("sm")]: {
@@ -50,7 +50,7 @@ export const Age = () => {
     dispatch(back());
     dispatch(addErrorMessage(""));
   };
-
+  console.log(2, { day, month, year, errorMessage });
   return (
     <Box>
       <Typography variant="subtitle3" marginBottom={1} component="h2">
@@ -95,18 +95,10 @@ export const Age = () => {
       <ButtonNext
         onClick={handleNext}
         text="Next"
-        disabled={!day || !month || !year || !!errorMessage}
+        disabled={!day || !month || !year}
       />
-      <ButtonComp
-        sx={{
-          mb: 3,
-          textAlign: "center",
-          width: "100%",
-        }}
-        variant="body1"
-        onClick={handleBack}
-        text="Back"
-      />
+
+      <ButtonBack onClick={handleBack} />
     </Box>
   );
 };

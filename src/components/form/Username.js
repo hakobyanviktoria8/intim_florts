@@ -9,7 +9,8 @@ import useDebounce from "../../hooks/useDebounce";
 import { useDispatch, useSelector } from "react-redux";
 import { addField } from "../../features/userDataSlice";
 import { addErrorMessage } from "../../features/errorMessageSlice";
-import { next } from "../../features/activeStepSlice";
+import { next, back } from "../../features/activeStepSlice";
+import { ButtonBack } from "../common/ButtonBack";
 
 export const Username = () => {
   const [username, setUsername] = useState("");
@@ -57,6 +58,11 @@ export const Username = () => {
     }
   };
 
+  const handleBack = () => {
+    dispatch(back());
+  };
+  console.log(4, { username, errorMessage, isLoading });
+
   return (
     <Box className="userBox">
       <Typography variant="subtitle3" marginBottom={2} component="h2">
@@ -77,8 +83,10 @@ export const Username = () => {
         text={
           isLoading ? <CircularProgress size={20} color="primary" /> : "Next"
         }
-        disabled={!username || !!errorMessage || isLoading}
+        disabled={!username || isLoading}
       />
+
+      <ButtonBack onClick={handleBack} />
     </Box>
   );
 };

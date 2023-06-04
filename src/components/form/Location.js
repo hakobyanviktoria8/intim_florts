@@ -2,7 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Box, InputBase, Typography, MenuItem } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from "@mui/material/styles";
+import { ButtonNext } from "../common/ButtonNext";
 import axios from "axios";
+
+import { useDispatch } from "react-redux";
+import { addField } from "../../features/userDataSlice";
+import { next, back } from "../../features/activeStepSlice";
+import { ButtonBack } from "../common/ButtonBack";
 
 const SearchBox = styled(Box)(() => ({
   position: "relative",
@@ -25,12 +31,14 @@ const LocationBox = styled(Box)(() => ({
   overflowY: "auto",
 }));
 
-export const Location = ({ handleFormChange }) => {
+export const Location = () => {
   const [searchVal, setSearchVal] = useState("");
   const [location, setLocation] = useState("");
   const [bool, setBool] = useState(false);
   const [locations, setLocations] = useState([]);
   const apiUrl = process.env.REACT_APP_API_URL;
+
+  const dispatch = useDispatch();
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
@@ -64,17 +72,27 @@ export const Location = ({ handleFormChange }) => {
 
     if (searchVal !== "") {
       fetchData();
-      if (location === "") {
-        setBool(true);
-      } else {
-        handleFormChange("location", location);
-        setBool(false);
-      }
     }
-
+    if (location === "") {
+      setBool(true);
+    } else {
+      setBool(false);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchVal, apiUrl]);
 
+  const handleNext = () => {
+    if (searchVal && location) {
+      dispatch(addField({ location: location }));
+      dispatch(next());
+    }
+  };
+
+  const handleBack = () => {
+    dispatch(back());
+  };
+
+  console.log(3, { location });
   return (
     <Box sx={{ position: "relative" }}>
       <Typography variant="subtitle3" marginBottom={1} component="h2">
@@ -112,6 +130,10 @@ export const Location = ({ handleFormChange }) => {
           ))}
         </LocationBox>
       )}
+
+      <ButtonNext onClick={handleNext} text="Next" disabled={!location} />
+
+      <ButtonBack onClick={handleBack} />
     </Box>
   );
 };

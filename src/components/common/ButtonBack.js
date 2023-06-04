@@ -1,7 +1,7 @@
-import React from "react";
 import { Button } from "@mui/material";
+import React from "react";
 
-export const ButtonNext = ({ text, disabled = false, onClick = null }) => {
+export const ButtonBack = ({ disabled = false, onClick = null }) => {
   return (
     <Button
       onClick={onClick}
@@ -12,16 +12,12 @@ export const ButtonNext = ({ text, disabled = false, onClick = null }) => {
         fontSize: "18px",
         borderRadius: "16px",
         textTransform: "none",
-        mt: 3,
-        mb: 2,
-        background: "#F76448",
-        color: "#FFFFFF",
-        "&:hover": {
-          backgroundColor: "rgba(247, 100, 72, 0.9)",
-        },
+        mb: 3,
+        textAlign: "center",
       }}
+      variant="body1"
     >
-      {text}
+      Back
     </Button>
   );
 };

@@ -38,6 +38,8 @@ export const Gender = () => {
     }
   };
 
+  console.log(1, { gender, looking });
+
   return (
     <Box>
       <Box>
