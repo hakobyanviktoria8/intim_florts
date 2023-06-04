@@ -33,25 +33,14 @@ const FormCompPaper = styled(Paper)(({ theme }) => ({
 export const FormComp = () => {
   const activeStep = useSelector((state) => state.activeStep.value);
   const userData = useSelector((state) => state.userData?.value);
-
-  function getStepContent(step) {
-    switch (step) {
-      case 0:
-        return <Gender />;
-      case 1:
-        return <Age />;
-      case 2:
-        return <Location />;
-      case 3:
-        return <Username />;
-      case 4:
-        return <Password />;
-      case 5:
-        return <Email />;
-      default:
-        throw new Error("Unknown step");
-    }
-  }
+  const stepsCompArr = [
+    <Gender />,
+    <Age />,
+    <Location />,
+    <Username />,
+    <Password />,
+    <Email />,
+  ];
 
   console.log("activeStep_________", activeStep, "userData_________", userData);
 
@@ -62,7 +51,7 @@ export const FormComp = () => {
 
         <StepperComp active={activeStep} />
 
-        {getStepContent(activeStep)}
+        {stepsCompArr[activeStep]}
       </FormCompPaper>
     </Box>
   );
