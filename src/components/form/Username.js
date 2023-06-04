@@ -3,6 +3,7 @@ import { Box, CircularProgress, Typography } from "@mui/material";
 import { Input } from "../common/Input";
 import { ErrorMessage } from "../common/ErrorMessage";
 import { ButtonNext } from "../common/ButtonNext";
+import { ButtonBack } from "../common/ButtonBack";
 import axios from "axios";
 import useDebounce from "../../hooks/useDebounce";
 
@@ -10,7 +11,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addField } from "../../features/userDataSlice";
 import { addErrorMessage } from "../../features/errorMessageSlice";
 import { next, back } from "../../features/activeStepSlice";
-import { ButtonBack } from "../common/ButtonBack";
 
 export const Username = () => {
   const [username, setUsername] = useState("");

@@ -1,9 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import { Input } from "../common/Input";
+import { ButtonNext } from "../common/ButtonNext";
+import { ButtonBack } from "../common/ButtonBack";
 
-export const Password = ({ handleFormChange }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { addField } from "../../features/userDataSlice";
+import { addErrorMessage } from "../../features/errorMessageSlice";
+import { next, back } from "../../features/activeStepSlice";
+import { ErrorMessage } from "../common/ErrorMessage";
+
+export const Password = () => {
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
+  const errorMessage = useSelector((state) => state.errorMessage?.value);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -14,12 +25,23 @@ export const Password = ({ handleFormChange }) => {
     }
   };
 
-  useEffect(() => {
-    if (password !== "" && password.length > 5) {
-      handleFormChange("password", password);
+  const handleNext = () => {
+    if (password && password.length > 5) {
+      try {
+        dispatch(addField({ password: password }));
+        dispatch(next());
+        dispatch(addErrorMessage(""));
+      } catch (error) {
+        dispatch(addErrorMessage(error?.response?.data?.Error?.message));
+      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [password]);
+  };
+
+  const handleBack = () => {
+    dispatch(back());
+  };
+  
+  console.log(4, { password, errorMessage });
 
   return (
     <Box className="userBox">
@@ -33,6 +55,12 @@ export const Password = ({ handleFormChange }) => {
         placeholder="Password"
         type="password"
       />
+
+      {errorMessage && <ErrorMessage />}
+
+      <ButtonNext onClick={handleNext} text="Next" disabled={!password} />
+
+      <ButtonBack onClick={handleBack} />
     </Box>
   );
 };
