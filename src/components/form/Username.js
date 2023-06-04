@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Box, CircularProgress, Typography } from "@mui/material";
 import { Input } from "../common/Input";
-import { ButtonComp } from "../common/ButtonComp";
+import { ErrorMessage } from "../common/ErrorMessage";
+import { ButtonNext } from "../common/ButtonNext";
 import axios from "axios";
 import useDebounce from "../../hooks/useDebounce";
 
@@ -9,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addField } from "../../features/userDataSlice";
 import { addErrorMessage } from "../../features/errorMessageSlice";
 import { next } from "../../features/activeStepSlice";
-import { ErrorMessage } from "../common/ErrorMessage";
 
 export const Username = () => {
   const [username, setUsername] = useState("");
@@ -21,11 +21,6 @@ export const Username = () => {
 
   const regex = /^[a-zA-Z0-9_]{0,12}$/;
   const debouncedUsername = useDebounce(username, 500, regex);
-
-  const handleChange = (e) => {
-    const value = e.target.value;
-    setUsername(value);
-  };
 
   const fetchData = async () => {
     try {
@@ -70,28 +65,19 @@ export const Username = () => {
 
       <Input
         value={username}
-        handleChange={handleChange}
+        handleChange={(e) => setUsername(e.target.value)}
         placeholder="User name"
         type="text"
       />
 
       {errorMessage && <ErrorMessage />}
 
-      <ButtonComp
+      <ButtonNext
         onClick={handleNext}
         text={
           isLoading ? <CircularProgress size={20} color="primary" /> : "Next"
         }
         disabled={!username || !!errorMessage || isLoading}
-        sx={{
-          mt: 3,
-          mb: 2,
-          background: "#F76448",
-          color: "#FFFFFF",
-          "&:hover": {
-            backgroundColor: "rgba(247, 100, 72, 0.9)",
-          },
-        }}
       />
     </Box>
   );

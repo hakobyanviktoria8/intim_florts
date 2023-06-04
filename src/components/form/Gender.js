@@ -1,12 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import { ButtonComp } from "../common/ButtonComp";
+import { ButtonNext } from "../common/ButtonNext";
 
-export const Gender = ({ handleFormChange }) => {
-  const [gender, setGender] = useState("");
+import { useDispatch } from "react-redux";
+import { addField } from "../../features/userDataSlice";
+import { next } from "../../features/activeStepSlice";
+
+export const Gender = () => {
+  const [gender, setGender] = useState("Male");
   const [looking, setLooking] = useState("");
-  // const [lookingFor, setLookingFor] = useState("");
 
+  const dispatch = useDispatch();
+
+  // const [lookingFor, setLookingFor] = useState("");
   // const handleLookingFor = () => {
   //   if (gender === "Female" && looking === "Male") {
   //     setLookingFor("Female_looking_for_male");
@@ -19,17 +26,17 @@ export const Gender = ({ handleFormChange }) => {
   //   }
   // };
 
-  useEffect(() => {
-    if (gender !== "" && looking !== "") {
-      handleFormChange("gender", gender);
-      handleFormChange("looking_for", looking);
+  const handleNext = () => {
+    if (gender) {
+      dispatch(addField({ gender: gender }));
     }
-    // handleLookingFor();
-    // if (lookingFor !== "") {
-    //   handleFormChange("looking_for", lookingFor);
-    // }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gender, looking]);
+    if (looking) {
+      dispatch(addField({ looking_for: looking }));
+    }
+    if (gender && looking) {
+      dispatch(next());
+    }
+  };
 
   return (
     <Box>
@@ -41,8 +48,10 @@ export const Gender = ({ handleFormChange }) => {
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <ButtonComp
             sx={{
-              border: "1px solid #B2B3B5",
-              color: "primary.light",
+              border: `1px solid ${
+                gender === "Female" ? "#F76448" : "#B2B3B5"
+              }`,
+              color: gender === "Female" ? "secondary.main" : "primary.light",
               marginBottom: "16px",
             }}
             onClick={() => setGender("Female")}
@@ -51,8 +60,8 @@ export const Gender = ({ handleFormChange }) => {
 
           <ButtonComp
             sx={{
-              border: "1px solid #F76448",
-              color: "secondary.main",
+              border: `1px solid ${gender === "Male" ? "#F76448" : "#B2B3B5"}`,
+              color: gender === "Male" ? "secondary.main" : "primary.light",
               marginBottom: "16px",
             }}
             onClick={() => setGender("Male")}
@@ -68,8 +77,10 @@ export const Gender = ({ handleFormChange }) => {
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <ButtonComp
             sx={{
-              border: "1px solid #B2B3B5",
-              color: "primary.light",
+              border: `1px solid ${
+                looking === "Female" ? "#F76448" : "#B2B3B5"
+              }`,
+              color: looking === "Female" ? "secondary.main" : "primary.light",
               marginBottom: "16px",
             }}
             onClick={() => setLooking("Female")}
@@ -78,8 +89,8 @@ export const Gender = ({ handleFormChange }) => {
 
           <ButtonComp
             sx={{
-              border: "1px solid #B2B3B5",
-              color: "primary.light",
+              border: `1px solid ${looking === "Male" ? "#F76448" : "#B2B3B5"}`,
+              color: looking === "Male" ? "secondary.main" : "primary.light",
               marginBottom: "16px",
             }}
             onClick={() => setLooking("Male")}
@@ -87,6 +98,12 @@ export const Gender = ({ handleFormChange }) => {
           />
         </Box>
       </Box>
+
+      <ButtonNext
+        onClick={handleNext}
+        text="Next"
+        disabled={!gender || !looking}
+      />
     </Box>
   );
 };
