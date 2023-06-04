@@ -17,7 +17,6 @@ const MainContentBox = styled(Box)(({ theme }) => ({
 
   [theme.breakpoints.up("sm")]: {
     padding: "60px",
-    // marginTop: "100px",
     justifyContent: "space-between",
   },
 }));

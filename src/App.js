@@ -1,17 +1,15 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { increment, decrement } from "./features/counterSlice";
+// import { MainContent } from "./components/MainContent";
+import { Footer } from "./components/Footer";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./theme";
 
 function App() {
-  const count = useSelector((state) => state.counter.value);
-  const dispatch = useDispatch();
-
   return (
-    <div className="App">
-      <button onClick={() => dispatch(increment())}>+</button>
-      <span>{count}</span>
-      <button onClick={() => dispatch(decrement())}>-</button>
-    </div>
+    <ThemeProvider theme={theme}>
+      {/* <MainContent /> */}
+      <Footer />
+    </ThemeProvider>
   );
 }
 
