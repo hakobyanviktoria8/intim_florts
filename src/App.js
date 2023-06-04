@@ -1,5 +1,5 @@
 import React from "react";
-// import { MainContent } from "./components/MainContent";
+import { MainContent } from "./components/MainContent";
 import { Footer } from "./components/Footer";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
@@ -7,7 +7,7 @@ import theme from "./theme";
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      {/* <MainContent /> */}
+      <MainContent />
       <Footer />
     </ThemeProvider>
   );

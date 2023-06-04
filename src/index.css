@@ -1,6 +1,24 @@
-body {
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Segoe UI";
+  font-family: "Public Sans";
+}
+
+.logo > img {
+  object-fit: contain !important;
+}
+
+.formControlBox fieldset,
+.userBox fieldset {
+  border: none;
+}
+
+.formControlBox label {
+  background: white;
+}
+
+.formControlBox .MuiSelect-select,
+.inputBox input {
+  padding: 10px;
 }

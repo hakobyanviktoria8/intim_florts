@@ -2,7 +2,7 @@ import React from "react";
 import backgroundImage from "./../images/bg-main.png";
 import { styled, Box } from "@mui/material";
 import { CartsWrapper } from "./cart/CartsWrapper";
-import { FormComp } from "./form/FormComp";
+// import { FormComp } from "./form/FormComp";
 
 const MainContentBox = styled(Box)(({ theme }) => ({
   background: "#F5F5F5",
@@ -24,7 +24,7 @@ const MainContentBox = styled(Box)(({ theme }) => ({
 export const MainContent = () => {
   return (
     <MainContentBox component="main">
-      <FormComp />
+      {/* <FormComp /> */}
       <CartsWrapper />
     </MainContentBox>
   );

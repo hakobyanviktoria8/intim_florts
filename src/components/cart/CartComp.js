@@ -19,7 +19,7 @@ const CartBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-const CircleContainer = styled(Box)(({ theme }) => ({
+const CircleContainer = styled(Box)(() => ({
   width: "64px",
   height: "64px",
   background: "white",
@@ -36,6 +36,7 @@ export const CartComp = ({ Icon, text }) => {
       <CircleContainer>
         <Icon color="secondary" fontSize="large" />
       </CircleContainer>
+      
       <Typography
         sx={{
           fontSize: {
