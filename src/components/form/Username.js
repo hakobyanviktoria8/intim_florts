@@ -5,7 +5,7 @@ import { ErrorMessage } from "../common/ErrorMessage";
 import { ButtonNext } from "../common/ButtonNext";
 import { ButtonBack } from "../common/ButtonBack";
 import axios from "axios";
-import useDebounce from "../../hooks/useDebounce";
+// import useDebounce from "../../hooks/useDebounce";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addField } from "../../features/userDataSlice";
@@ -20,8 +20,18 @@ export const Username = () => {
   const dispatch = useDispatch();
   const errorMessage = useSelector((state) => state.errorMessage?.value);
 
-  const regex = /^[a-zA-Z0-9_]{0,12}$/;
-  const debouncedUsername = useDebounce(username, 500, regex);
+  // const regex = /^[a-zA-Z0-9_]{0,12}$/;
+  // const debouncedUsername = useDebounce(username, 500, regex);
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    const regex = /^[a-zA-Z0-9_]{0,12}$/;
+
+    if (regex.test(value)) {
+      setUsername(value);
+    }
+    dispatch(addErrorMessage(""));
+  };
 
   const fetchData = async () => {
     try {
@@ -29,7 +39,7 @@ export const Username = () => {
 
       const response = await axios.post(
         `${apiUrl}/start`,
-        { username: debouncedUsername },
+        { username: username },
         {
           params: {
             site_key: "no01",
@@ -52,14 +62,15 @@ export const Username = () => {
   };
 
   const handleNext = () => {
-    if (debouncedUsername) {
-      dispatch(addField({ username: debouncedUsername }));
+    if (username) {
+      dispatch(addField({ username: username }));
       fetchData();
     }
   };
 
   const handleBack = () => {
     dispatch(back());
+    dispatch(addErrorMessage(""));
   };
   console.log(4, { username, errorMessage, isLoading });
 
@@ -71,19 +82,19 @@ export const Username = () => {
 
       <Input
         value={username}
-        handleChange={(e) => setUsername(e.target.value)}
+        handleChange={handleChange}
         placeholder="User name"
         type="text"
       />
 
-      {errorMessage && <ErrorMessage />}
+      {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
 
       <ButtonNext
         onClick={handleNext}
         text={
           isLoading ? <CircularProgress size={20} color="primary" /> : "Next"
         }
-        disabled={!username || isLoading}
+        disabled={!username || isLoading || !!errorMessage}
       />
 
       <ButtonBack onClick={handleBack} />

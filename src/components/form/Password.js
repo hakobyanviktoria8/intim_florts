@@ -23,6 +23,7 @@ export const Password = () => {
     if (regex.test(value)) {
       setPassword(value);
     }
+    dispatch(addErrorMessage(""));
   };
 
   const handleNext = () => {
@@ -39,6 +40,7 @@ export const Password = () => {
 
   const handleBack = () => {
     dispatch(back());
+    dispatch(addErrorMessage(""));
   };
 
   console.log(4, { password, errorMessage });
@@ -56,9 +58,13 @@ export const Password = () => {
         type="password"
       />
 
-      {errorMessage && <ErrorMessage />}
+      {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
 
-      <ButtonNext onClick={handleNext} text="Next" disabled={!password} />
+      <ButtonNext
+        onClick={handleNext}
+        text="Next"
+        disabled={!password || !!errorMessage}
+      />
 
       <ButtonBack onClick={handleBack} />
     </Box>

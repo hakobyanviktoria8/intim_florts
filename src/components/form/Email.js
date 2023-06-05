@@ -36,6 +36,7 @@ export const Email = () => {
 
   const handleChange = (e) => {
     setEmail(e.target.value);
+    dispatch(addErrorMessage(""));
   };
 
   const handleCheckboxChange = (name) => (e) => {
@@ -87,6 +88,7 @@ export const Email = () => {
 
   const handleBack = () => {
     dispatch(back());
+    dispatch(addErrorMessage(""));
   };
 
   console.log(5, { email, errorMessage });
@@ -149,7 +151,7 @@ export const Email = () => {
         />
       </FormGroup>
 
-      {errorMessage && <ErrorMessage />}
+      {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
 
       <ButtonNext
         onClick={handleNext}
@@ -160,7 +162,9 @@ export const Email = () => {
             "Complete"
           )
         }
-        disabled={!email || !checkboxes.years || !checkboxes.read}
+        disabled={
+          !email || !checkboxes.years || !checkboxes.read || !!errorMessage
+        }
       />
 
       <ButtonBack onClick={handleBack} />

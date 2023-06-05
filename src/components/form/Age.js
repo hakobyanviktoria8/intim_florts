@@ -28,6 +28,7 @@ export const Age = () => {
       ...prevData,
       [name]: value,
     }));
+    dispatch(addErrorMessage(""));
   };
 
   const errorMessage = useSelector((state) => state.errorMessage?.value);
@@ -90,12 +91,12 @@ export const Age = () => {
         />
       </AgeDataBox>
 
-      {errorMessage && <ErrorMessage />}
+      {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
 
       <ButtonNext
         onClick={handleNext}
         text="Next"
-        disabled={!day || !month || !year}
+        disabled={!day || !month || !year || !!errorMessage}
       />
 
       <ButtonBack onClick={handleBack} />
