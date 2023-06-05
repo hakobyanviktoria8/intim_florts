@@ -4,12 +4,12 @@ import { generateOptions, generateYearOptions } from "../../helpers/DateUtils";
 import { FormControlComp } from "../common/FormControlComp";
 import { ButtonNext } from "../common/ButtonNext";
 import { ErrorMessage } from "../common/ErrorMessage";
+import { ButtonBack } from "../common/ButtonBack";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addField } from "../../features/userDataSlice";
 import { next, back } from "../../features/activeStepSlice";
 import { addErrorMessage } from "../../features/errorMessageSlice";
-import { ButtonBack } from "../common/ButtonBack";
 
 const AgeDataBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up("sm")]: {
@@ -19,7 +19,12 @@ const AgeDataBox = styled(Box)(({ theme }) => ({
 }));
 
 export const Age = () => {
-  const [ageData, setAgeData] = useState({ day: "", month: "", year: "" });
+  const userData = useSelector((state) => state.userData?.value);
+  const [ageData, setAgeData] = useState({
+    day: userData.day || "",
+    month: userData.month || "",
+    year: userData.year || "",
+  });
   const { day, month, year } = ageData;
 
   const handleChange = (e) => {
@@ -37,8 +42,7 @@ export const Age = () => {
   const handleNext = () => {
     if (day && month && year) {
       try {
-        const formattedDob = `${year}-${month}-${day}`;
-        dispatch(addField({ DOB: formattedDob }));
+        dispatch(addField({ day, month, year }));
         dispatch(next());
         dispatch(addErrorMessage(""));
       } catch (error) {
@@ -51,7 +55,7 @@ export const Age = () => {
     dispatch(back());
     dispatch(addErrorMessage(""));
   };
-  console.log(2, { day, month, year, errorMessage });
+
   return (
     <Box>
       <Typography variant="subtitle3" marginBottom={1} component="h2">

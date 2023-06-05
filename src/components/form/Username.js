@@ -5,7 +5,6 @@ import { ErrorMessage } from "../common/ErrorMessage";
 import { ButtonNext } from "../common/ButtonNext";
 import { ButtonBack } from "../common/ButtonBack";
 import axios from "axios";
-// import useDebounce from "../../hooks/useDebounce";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addField } from "../../features/userDataSlice";
@@ -13,15 +12,13 @@ import { addErrorMessage } from "../../features/errorMessageSlice";
 import { next, back } from "../../features/activeStepSlice";
 
 export const Username = () => {
-  const [username, setUsername] = useState("");
+  const userData = useSelector((state) => state.userData?.value);
+  const [username, setUsername] = useState(userData.username || "");
   const [isLoading, setIsLoading] = useState(false);
   const apiUrl = process.env.REACT_APP_API_URL;
 
   const dispatch = useDispatch();
   const errorMessage = useSelector((state) => state.errorMessage?.value);
-
-  // const regex = /^[a-zA-Z0-9_]{0,12}$/;
-  // const debouncedUsername = useDebounce(username, 500, regex);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -72,7 +69,6 @@ export const Username = () => {
     dispatch(back());
     dispatch(addErrorMessage(""));
   };
-  console.log(4, { username, errorMessage, isLoading });
 
   return (
     <Box className="userBox">

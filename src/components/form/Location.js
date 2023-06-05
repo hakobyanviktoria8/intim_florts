@@ -3,12 +3,12 @@ import { Box, InputBase, Typography, MenuItem } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from "@mui/material/styles";
 import { ButtonNext } from "../common/ButtonNext";
+import { ButtonBack } from "../common/ButtonBack";
 import axios from "axios";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addField } from "../../features/userDataSlice";
 import { next, back } from "../../features/activeStepSlice";
-import { ButtonBack } from "../common/ButtonBack";
 
 const SearchBox = styled(Box)(() => ({
   position: "relative",
@@ -32,8 +32,9 @@ const LocationBox = styled(Box)(() => ({
 }));
 
 export const Location = () => {
+  const userData = useSelector((state) => state.userData?.value);
   const [searchVal, setSearchVal] = useState("");
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState(userData.location || "");
   const [bool, setBool] = useState(false);
   const [locations, setLocations] = useState([]);
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -63,7 +64,6 @@ export const Location = () => {
             site_key: "no01",
           },
         });
-
         setLocations(response?.data?.Data);
       } catch (error) {
         console.log(error);
@@ -78,11 +78,10 @@ export const Location = () => {
     } else {
       setBool(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchVal, apiUrl]);
+  }, [searchVal, apiUrl, location, userData]);
 
   const handleNext = () => {
-    if (searchVal && location) {
+    if (location) {
       dispatch(addField({ location: location }));
       dispatch(next());
     }
@@ -92,7 +91,6 @@ export const Location = () => {
     dispatch(back());
   };
 
-  console.log(3, { location });
   return (
     <Box sx={{ position: "relative" }}>
       <Typography variant="subtitle3" marginBottom={1} component="h2">
@@ -108,7 +106,7 @@ export const Location = () => {
           inputProps={{ "aria-label": "search" }}
           onChange={handleSearchChange}
           sx={{ width: "100%", fontSize: "16px" }}
-          value={searchVal}
+          value={location || searchVal}
         />
 
         <SearchIcon sx={{ color: "secondary.main", fontSize: "22px" }} />

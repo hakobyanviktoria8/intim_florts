@@ -20,7 +20,8 @@ import { addErrorMessage } from "../../features/errorMessageSlice";
 import { next, back } from "../../features/activeStepSlice";
 
 export const Email = () => {
-  const [email, setEmail] = useState("");
+  const userData = useSelector((state) => state.userData?.value);
+  const [email, setEmail] = useState(userData.email || "");
   const [checkboxes, setCheckboxes] = useState({
     years: false,
     read: false,
@@ -29,7 +30,6 @@ export const Email = () => {
 
   const apiUrl = process.env.REACT_APP_API_URL;
   const storedUid = localStorage.getItem("uid");
-  const userData = useSelector((state) => state.userData?.value);
 
   const dispatch = useDispatch();
   const errorMessage = useSelector((state) => state.errorMessage?.value);
@@ -54,7 +54,7 @@ export const Email = () => {
         `${apiUrl}/${storedUid}`,
         {
           email: email,
-          DOB: userData.DOB,
+          DOB: `${userData.year}-${userData.month}-${userData.day}`,
           location: userData.location,
           gender: userData.gender,
           password: userData.password,
@@ -90,8 +90,6 @@ export const Email = () => {
     dispatch(back());
     dispatch(addErrorMessage(""));
   };
-
-  console.log(5, { email, errorMessage });
 
   return (
     <Box className="userBox">

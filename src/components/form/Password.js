@@ -43,8 +43,6 @@ export const Password = () => {
     dispatch(addErrorMessage(""));
   };
 
-  console.log(4, { password, errorMessage });
-
   return (
     <Box className="userBox">
       <Typography variant="subtitle3" marginBottom={2} component="h2">

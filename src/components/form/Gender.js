@@ -4,13 +4,14 @@ import { ButtonComp } from "../common/ButtonComp";
 import { ButtonNext } from "../common/ButtonNext";
 import { HaveAccount } from "../common/HaveAccount";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addField } from "../../features/userDataSlice";
 import { next } from "../../features/activeStepSlice";
 
 export const Gender = () => {
-  const [gender, setGender] = useState("Male");
-  const [looking, setLooking] = useState("");
+  const userData = useSelector((state) => state.userData?.value);
+  const [gender, setGender] = useState(userData.gender || "Male");
+  const [looking, setLooking] = useState(userData.looking_for || "");
 
   const dispatch = useDispatch();
 
@@ -38,8 +39,6 @@ export const Gender = () => {
       dispatch(next());
     }
   };
-
-  console.log(1, { gender, looking });
 
   return (
     <Box>
@@ -97,7 +96,7 @@ export const Gender = () => {
               marginBottom: "16px",
             }}
             onClick={() => setLooking("Male")}
-            text="Mail"
+            text="Male"
           />
         </Box>
       </Box>

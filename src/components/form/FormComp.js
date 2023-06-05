@@ -33,7 +33,6 @@ const FormCompPaper = styled(Paper)(({ theme }) => ({
 
 export const FormComp = () => {
   const activeStep = useSelector((state) => state.activeStep.value);
-  const userData = useSelector((state) => state.userData?.value);
   const steps = 6;
   const stepsCompArr = [
     <Gender />,
@@ -44,8 +43,6 @@ export const FormComp = () => {
     <Email />,
     <FinishedSuccess />,
   ];
-
-  console.log("activeStep_________", activeStep, "userData_________", userData);
 
   return (
     <Box>
