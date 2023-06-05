@@ -10,6 +10,7 @@ import { Gender } from "./Gender";
 import { Email } from "./Email";
 import { Location } from "./Location";
 import { Password } from "./Password";
+import { FinishedSuccess } from "./FinishedSuccess";
 
 const FormCompPaper = styled(Paper)(({ theme }) => ({
   width: "340px",
@@ -33,6 +34,7 @@ const FormCompPaper = styled(Paper)(({ theme }) => ({
 export const FormComp = () => {
   const activeStep = useSelector((state) => state.activeStep.value);
   const userData = useSelector((state) => state.userData?.value);
+  const steps = 6;
   const stepsCompArr = [
     <Gender />,
     <Age />,
@@ -40,6 +42,7 @@ export const FormComp = () => {
     <Username />,
     <Password />,
     <Email />,
+    <FinishedSuccess />,
   ];
 
   console.log("activeStep_________", activeStep, "userData_________", userData);
@@ -49,7 +52,7 @@ export const FormComp = () => {
       <FormCompPaper>
         <Logo />
 
-        <StepperComp active={activeStep} />
+        {activeStep < steps && <StepperComp active={activeStep} />}
 
         {stepsCompArr[activeStep]}
       </FormCompPaper>

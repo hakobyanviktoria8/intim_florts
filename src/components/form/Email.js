@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Checkbox,
@@ -6,15 +6,33 @@ import {
   FormGroup,
   Typography,
   Link,
+  CircularProgress,
 } from "@mui/material";
 import { Input } from "../common/Input";
+import { ButtonNext } from "../common/ButtonNext";
+import { ButtonBack } from "../common/ButtonBack";
+import { ErrorMessage } from "../common/ErrorMessage";
+import axios from "axios";
 
-export const Email = ({ handleFormChange }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { addField } from "../../features/userDataSlice";
+import { addErrorMessage } from "../../features/errorMessageSlice";
+import { next, back } from "../../features/activeStepSlice";
+
+export const Email = () => {
   const [email, setEmail] = useState("");
   const [checkboxes, setCheckboxes] = useState({
     years: false,
     read: false,
   });
+  const [isLoading, setIsLoading] = useState(false);
+
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const storedUid = localStorage.getItem("uid");
+  const userData = useSelector((state) => state.userData?.value);
+
+  const dispatch = useDispatch();
+  const errorMessage = useSelector((state) => state.errorMessage?.value);
 
   const handleChange = (e) => {
     setEmail(e.target.value);
@@ -27,13 +45,51 @@ export const Email = ({ handleFormChange }) => {
     }));
   };
 
-  useEffect(() => {
-    if (email !== "" && checkboxes.years && checkboxes.read) {
-      handleFormChange("email", email);
-      handleFormChange("checkboxes", checkboxes.years && checkboxes.read);
+  const fetchCompleteData = async () => {
+    try {
+      setIsLoading(true);
+
+      const response = await axios.post(
+        `${apiUrl}/${storedUid}`,
+        {
+          email: email,
+          DOB: userData.DOB,
+          location: userData.location,
+          gender: userData.gender,
+          password: userData.password,
+          looking_for: userData.looking_for,
+        },
+        {
+          params: {
+            site_key: "no01",
+          },
+        }
+      );
+      if (response?.data.Status === "ok") {
+        dispatch(next());
+        dispatch(addErrorMessage(""));
+      }
+    } catch (error) {
+      if (error?.response?.data.Status === "fail") {
+        dispatch(addErrorMessage(error?.response?.data?.Error?.message));
+      }
+    } finally {
+      setIsLoading(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [email, checkboxes]);
+  };
+
+  const handleNext = () => {
+    if (email && checkboxes.years && checkboxes.read) {
+      dispatch(addField({ email: email }));
+      fetchCompleteData();
+    }
+  };
+
+  const handleBack = () => {
+    dispatch(back());
+  };
+
+  console.log(5, { email, errorMessage });
 
   return (
     <Box className="userBox">
@@ -92,6 +148,22 @@ export const Email = ({ handleFormChange }) => {
           }
         />
       </FormGroup>
+
+      {errorMessage && <ErrorMessage />}
+
+      <ButtonNext
+        onClick={handleNext}
+        text={
+          isLoading ? (
+            <CircularProgress size={20} color="primary" />
+          ) : (
+            "Complete"
+          )
+        }
+        disabled={!email || !checkboxes.years || !checkboxes.read}
+      />
+
+      <ButtonBack onClick={handleBack} />
     </Box>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import { ButtonComp } from "../common/ButtonComp";
 import { ButtonNext } from "../common/ButtonNext";
+import { HaveAccount } from "../common/HaveAccount";
 
 import { useDispatch } from "react-redux";
 import { addField } from "../../features/userDataSlice";
@@ -106,6 +107,8 @@ export const Gender = () => {
         text="Next"
         disabled={!gender || !looking}
       />
+
+      <HaveAccount />
     </Box>
   );
 };

@@ -3,12 +3,12 @@ import { Box, Typography } from "@mui/material";
 import { Input } from "../common/Input";
 import { ButtonNext } from "../common/ButtonNext";
 import { ButtonBack } from "../common/ButtonBack";
+import { ErrorMessage } from "../common/ErrorMessage";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addField } from "../../features/userDataSlice";
 import { addErrorMessage } from "../../features/errorMessageSlice";
 import { next, back } from "../../features/activeStepSlice";
-import { ErrorMessage } from "../common/ErrorMessage";
 
 export const Password = () => {
   const [password, setPassword] = useState("");
@@ -40,7 +40,7 @@ export const Password = () => {
   const handleBack = () => {
     dispatch(back());
   };
-  
+
   console.log(4, { password, errorMessage });
 
   return (
