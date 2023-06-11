@@ -5,6 +5,7 @@ import { styled } from "@mui/material/styles";
 import { ButtonNext } from "../common/ButtonNext";
 import { ButtonBack } from "../common/ButtonBack";
 import axios from "axios";
+import { Translate, Translator } from "react-translated";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addField } from "../../features/userDataSlice";
@@ -94,21 +95,26 @@ export const Location = () => {
   return (
     <Box sx={{ position: "relative" }}>
       <Typography variant="subtitle3" marginBottom={1} component="h2">
-        Your location
+        <Translate text="location" />
       </Typography>
       <Typography variant="body2" marginBottom={2}>
-        Search location by city, country or zip code
+        <Translate text="search location" />
       </Typography>
 
       <SearchBox>
-        <InputBase
-          placeholder="London, UK"
-          inputProps={{ "aria-label": "search" }}
-          onChange={handleSearchChange}
-          sx={{ width: "100%", fontSize: "16px" }}
-          value={location || searchVal}
-        />
-
+        <Translator>
+          {({ translate }) => (
+            <InputBase
+              placeholder={translate({
+                text: "placeholder",
+              })}
+              inputProps={{ "aria-label": "search" }}
+              onChange={handleSearchChange}
+              sx={{ width: "100%", fontSize: "16px" }}
+              value={location || searchVal}
+            />
+          )}
+        </Translator>
         <SearchIcon sx={{ color: "secondary.main", fontSize: "22px" }} />
       </SearchBox>
 
