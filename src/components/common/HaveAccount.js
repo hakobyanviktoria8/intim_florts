@@ -1,5 +1,6 @@
 import { Divider, Link, Typography } from "@mui/material";
 import React from "react";
+import { Translate } from "react-translated";
 
 export const HaveAccount = () => {
   return (
@@ -18,10 +19,10 @@ export const HaveAccount = () => {
         textAlign="center"
         display="block"
       >
-        Already have an account?
+        <Translate text="have account" />
         <Link color="secondary.main" href="/" sx={{ textDecoration: "none" }}>
           {" "}
-          Log In
+          <Translate text="log In" />
         </Link>
       </Typography>
     </>

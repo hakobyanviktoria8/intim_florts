@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/material";
 import { ButtonComp } from "../common/ButtonComp";
 import { ButtonNext } from "../common/ButtonNext";
 import { HaveAccount } from "../common/HaveAccount";
+import { Translate } from "react-translated";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addField } from "../../features/userDataSlice";
@@ -44,7 +45,7 @@ export const Gender = () => {
     <Box>
       <Box>
         <Typography variant="subtitle3" marginBottom={2} component="h2">
-          Your gender
+          <Translate text="gender" />
         </Typography>
 
         <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -57,7 +58,7 @@ export const Gender = () => {
               marginBottom: "16px",
             }}
             onClick={() => setGender("Female")}
-            text="Female"
+            text={<Translate text="female" />}
           />
 
           <ButtonComp
@@ -67,13 +68,13 @@ export const Gender = () => {
               marginBottom: "16px",
             }}
             onClick={() => setGender("Male")}
-            text="Male"
+            text={<Translate text="male" />}
           />
         </Box>
       </Box>
       <Box>
         <Typography variant="subtitle3" marginBottom={2} component="h2" mt={3}>
-          You are interested in
+          <Translate text="interested" />
         </Typography>
 
         <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -86,7 +87,7 @@ export const Gender = () => {
               marginBottom: "16px",
             }}
             onClick={() => setLooking("Female")}
-            text="Female"
+            text={<Translate text="female" />}
           />
 
           <ButtonComp
@@ -96,14 +97,14 @@ export const Gender = () => {
               marginBottom: "16px",
             }}
             onClick={() => setLooking("Male")}
-            text="Male"
+            text={<Translate text="male" />}
           />
         </Box>
       </Box>
 
       <ButtonNext
         onClick={handleNext}
-        text="Next"
+        text={<Translate text="next" />}
         disabled={!gender || !looking}
       />
 
