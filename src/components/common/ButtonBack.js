@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import React from "react";
+import { Translate } from "react-translated";
 
 export const ButtonBack = ({ disabled = false, onClick = null }) => {
   return (
@@ -17,7 +18,7 @@ export const ButtonBack = ({ disabled = false, onClick = null }) => {
       }}
       variant="body1"
     >
-      Back
+      <Translate text="back" />
     </Button>
   );
 };

@@ -16,10 +16,6 @@ export default {
     en: "Male",
     no: "",
   },
-  next: {
-    en: "Next",
-    no: "",
-  },
   "have account": {
     en: "Already have an account?",
     no: "",

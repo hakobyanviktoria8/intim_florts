@@ -104,7 +104,7 @@ export const Gender = () => {
 
       <ButtonNext
         onClick={handleNext}
-        text={<Translate text="next" />}
+        text="Next"
         disabled={!gender || !looking}
       />
 

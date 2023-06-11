@@ -5,6 +5,7 @@ import { FormControlComp } from "../common/FormControlComp";
 import { ButtonNext } from "../common/ButtonNext";
 import { ErrorMessage } from "../common/ErrorMessage";
 import { ButtonBack } from "../common/ButtonBack";
+import { Translate } from "react-translated";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addField } from "../../features/userDataSlice";
@@ -59,17 +60,17 @@ export const Age = () => {
   return (
     <Box>
       <Typography variant="subtitle3" marginBottom={1} component="h2">
-        Your age
+        <Translate text="age" />
       </Typography>
       <Typography variant="body2" marginBottom={2}>
-        You must be at least 18 years old to use Intim Flort
+        <Translate text="18 years old" />
       </Typography>
 
       <AgeDataBox>
         <FormControlComp
           value={ageData.day}
           handleChange={handleChange}
-          label="Day"
+          label="day"
           name="day"
           getOption={generateOptions(31)}
           labelId="day-label"
@@ -78,7 +79,7 @@ export const Age = () => {
         <FormControlComp
           value={ageData.month}
           handleChange={handleChange}
-          label="Month"
+          label="month"
           name="month"
           getOption={generateOptions(12)}
           labelId="month-label"
@@ -87,7 +88,7 @@ export const Age = () => {
         <FormControlComp
           value={ageData.year}
           handleChange={handleChange}
-          label="Year"
+          label="year"
           name="year"
           getOption={generateYearOptions()}
           labelId="year-label"

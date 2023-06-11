@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "@mui/material";
+import { Translate } from "react-translated";
 
 export const ButtonNext = ({ text, disabled = false, onClick = null }) => {
   return (
@@ -21,7 +22,7 @@ export const ButtonNext = ({ text, disabled = false, onClick = null }) => {
         },
       }}
     >
-      {text}
+      <Translate text="next" />
     </Button>
   );
 };

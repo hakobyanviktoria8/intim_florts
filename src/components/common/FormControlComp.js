@@ -1,5 +1,6 @@
 import { FormControl, InputLabel, Select, styled } from "@mui/material";
 import React from "react";
+import { Translate } from "react-translated";
 
 const FormControlBox = styled(FormControl)(({ theme }) => ({
   border: "1px solid #F76448",
@@ -26,13 +27,13 @@ export const FormControlComp = ({
   return (
     <FormControlBox fullWidth className="formControlBox">
       <InputLabel id={id} sx={{ p: 0 }}>
-        {label}
+        <Translate text={label} />
       </InputLabel>
       <Select
         sx={{ padding: "0 12px" }}
         name={name}
         value={value}
-        label={label}
+        label={<Translate text={label} />}
         onChange={handleChange}
         labelId={labelId}
         id={id}
