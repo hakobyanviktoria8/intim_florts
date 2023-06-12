@@ -1,5 +1,6 @@
 import React from "react";
 import { TextField, styled } from "@mui/material";
+import { Translator } from "react-translated";
 
 const InputBox = styled(TextField)(() => ({
   border: "1px solid #F76448",
@@ -18,13 +19,21 @@ export const Input = ({
   handleValidation,
 }) => {
   return (
-    <InputBox
-      className="inputBox"
-      value={value}
-      onChange={handleChange}
-      onBlur={handleValidation}
-      placeholder={placeholder}
-      type={type}
-    />
+    <>
+      <Translator>
+        {({ translate }) => (
+          <InputBox
+            placeholder={translate({
+              text: placeholder,
+            })}
+            className="inputBox"
+            value={value}
+            onChange={handleChange}
+            onBlur={handleValidation}
+            type={type}
+          />
+        )}
+      </Translator>
+    </>
   );
 };

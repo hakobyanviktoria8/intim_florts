@@ -5,6 +5,7 @@ import { ErrorMessage } from "../common/ErrorMessage";
 import { ButtonNext } from "../common/ButtonNext";
 import { ButtonBack } from "../common/ButtonBack";
 import axios from "axios";
+import { Translate } from "react-translated";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addField } from "../../features/userDataSlice";
@@ -73,13 +74,13 @@ export const Username = () => {
   return (
     <Box className="userBox">
       <Typography variant="subtitle3" marginBottom={2} component="h2">
-        Create a username
+        <Translate text="username" />
       </Typography>
 
       <Input
         value={username}
         handleChange={handleChange}
-        placeholder="User name"
+        placeholder="filed value"
         type="text"
       />
 
