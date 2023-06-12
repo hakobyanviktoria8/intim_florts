@@ -1,5 +1,6 @@
 import { Link } from "@mui/material";
 import React from "react";
+import { Translate } from "react-translated";
 
 export const LinkComp = ({ link }) => {
   return (
@@ -18,7 +19,7 @@ export const LinkComp = ({ link }) => {
         lineHeight: "26px",
       }}
     >
-      {link.text}
+      <Translate text={link.text} />
     </Link>
   );
 };

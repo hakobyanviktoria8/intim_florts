@@ -17,6 +17,7 @@ const CartsWrapperBox = styled(Box)(({ theme }) => ({
 
   [theme.breakpoints.up("lg")]: {
     marginTop: "100px",
+    flexWrap: "wrap",
   },
 }));
 

@@ -3,6 +3,7 @@ import { Box, Divider, Typography, styled } from "@mui/material";
 import { linksData } from "../dataUiPart.js/linksData";
 import { LinkComp } from "./link/LinkComp";
 import { Logo } from "./common/Logo";
+import { Translate } from "react-translated";
 
 const FooterBox = styled(Box)(({ theme }) => ({
   fontSize: "14px",
@@ -29,8 +30,10 @@ export const Footer = () => {
       </Box>
 
       <Divider sx={{ mb: 3, mt: 5, width: "100%" }} />
+
       <Typography variant="body3">
-        &copy; 2023 Intim Florts | All Rights Reserved.
+        &copy; {new Date().getFullYear()} Intim Florts |{" "}
+        <Translate text="rights reserved" />
       </Typography>
     </FooterBox>
   );
