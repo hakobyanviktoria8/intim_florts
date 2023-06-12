@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addField } from "../../features/userDataSlice";
 import { addErrorMessage } from "../../features/errorMessageSlice";
 import { next, back } from "../../features/activeStepSlice";
+import { Translate } from "react-translated";
 
 export const Email = () => {
   const userData = useSelector((state) => state.userData?.value);
@@ -94,12 +95,12 @@ export const Email = () => {
   return (
     <Box className="userBox">
       <Typography variant="subtitle3" marginBottom={2} component="h2">
-        Add email address
+        <Translate text="email" />
       </Typography>
       <Input
         value={email}
         handleChange={handleChange}
-        placeholder="Email"
+        placeholder="email value"
         type="email"
       />
 
@@ -116,7 +117,11 @@ export const Email = () => {
               }}
             />
           }
-          label={<Typography variant="body4">18 years old</Typography>}
+          label={
+            <Typography variant="body4">
+              <Translate text="years old" />
+            </Typography>
+          }
         />
         <FormControlLabel
           control={
@@ -132,17 +137,17 @@ export const Email = () => {
           }
           label={
             <Typography variant="body4">
-              I have read and accept the{" "}
+              <Translate text="read and accept" />{" "}
               <Link
                 sx={{ color: "secondary.contrastText", textDecoration: "none" }}
               >
-                Terms of Service
+                <Translate text="terms of service" />
               </Link>{" "}
-              and our{" "}
+              <Translate text="and our" />{" "}
               <Link
                 sx={{ color: "secondary.contrastText", textDecoration: "none" }}
               >
-                Privacy Statement.
+                <Translate text="privacy statement" />
               </Link>
             </Typography>
           }
