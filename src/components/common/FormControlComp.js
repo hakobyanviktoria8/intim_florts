@@ -26,7 +26,7 @@ export const FormControlComp = ({
 }) => {
   return (
     <FormControlBox fullWidth className="formControlBox">
-      <InputLabel id={id} sx={{ p: 0 }}>
+      <InputLabel id={id} sx={{ p: "0 5px" }}>
         <Translate text={label} />
       </InputLabel>
       <Select
