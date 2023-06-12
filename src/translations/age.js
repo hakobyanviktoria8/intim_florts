@@ -2,22 +2,22 @@
 export default {
   age: {
     en: "Your age",
-    no: "",
+    no: "Din alder",
   },
   "18 years old": {
     en: "You must be at least 18 years old to use Intim Flort",
-    no: "",
+    no: "Du må være minst 18 år for å bruke Intim Flort",
   },
   day: {
     en: "Day",
-    no: "",
+    no: "Dag",
   },
   month: {
     en: "Month",
-    no: "",
+    no: "Måned",
   },
   year: {
     en: "Year",
-    no: "",
+    no: "År",
   },
 };

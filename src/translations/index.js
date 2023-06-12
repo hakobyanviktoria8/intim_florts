@@ -23,10 +23,10 @@ export default {
   // common translate keys
   next: {
     en: "Next",
-    no: "",
+    no: "Neste",
   },
   back: {
     en: "Back",
-    no: "",
+    no: "Tilbake",
   },
 };

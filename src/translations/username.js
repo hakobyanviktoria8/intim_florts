@@ -2,10 +2,10 @@
 export default {
   username: {
     en: "Create a username",
-    no: "",
+    no: "Lag et brukernavn",
   },
   "username value": {
-    en: "User name",
-    no: "",
+    en: "Username",
+    no: "Brukernavn",
   },
 };

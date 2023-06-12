@@ -2,10 +2,10 @@
 export default {
   password: {
     en: "Create a password",
-    no: "",
+    no: "Lag et passord",
   },
   "password value": {
     en: "Password",
-    no: "",
+    no: "Passord",
   },
 };

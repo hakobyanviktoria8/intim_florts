@@ -2,14 +2,14 @@
 export default {
   location: {
     en: "Your location",
-    no: "",
+    no: "Posisjonen din",
   },
   "search location": {
-    en: "Search location by city, country or zip code",
-    no: "",
+    en: "Search location by city, country, or zip code",
+    no: "Søk etter by, land eller postnummer",
   },
   placeholder: {
     en: "London, UK",
-    no: "",
+    no: "London, UK",
   },
 };

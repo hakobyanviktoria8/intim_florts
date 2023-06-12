@@ -45,6 +45,10 @@ const CartBox = styled(Box)(({ theme }) => ({
     width: "250px",
     fontSize: "18px",
     margin: "14px 35px",
+
+    ":last-child": {
+      width: "270px",
+    },
   },
 }));
 

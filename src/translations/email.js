@@ -2,30 +2,30 @@
 export default {
   email: {
     en: "Add email address",
-    no: "",
+    no: "Legg til e-postadresse",
   },
   "email value": {
     en: "Email",
-    no: "",
+    no: "E-post",
   },
   "years old": {
     en: "18 years old",
-    no: "",
+    no: "18 år gammel",
   },
   "read and accept": {
-    en: "I have read and accept the",
-    no: "",
+    en: "I have read and accepted the",
+    no: "Jeg har lest og godtatt",
   },
   "terms of service": {
     en: "Terms of Service",
-    no: "",
+    no: "Vilkår for bruk",
   },
   "and our": {
     en: "and our",
-    no: "",
+    no: "og vår",
   },
   "privacy statement": {
     en: "Privacy Statement.",
-    no: "",
+    no: "Personvernerklæring.",
   },
 };

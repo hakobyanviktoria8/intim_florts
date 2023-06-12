@@ -2,10 +2,10 @@
 export default {
   "thank you": {
     en: "Thank you.",
-    no: "",
+    no: "Takk skal du ha.",
   },
   welcome: {
     en: "Welcome",
-    no: "",
+    no: "Velkommen",
   },
 };

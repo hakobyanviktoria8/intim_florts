@@ -2,26 +2,26 @@
 export default {
   gender: {
     en: "Your gender",
-    no: "",
+    no: "Ditt kjønn",
   },
   interested: {
     en: "You are interested in",
-    no: "",
+    no: "Du er interessert i",
   },
   female: {
     en: "Female",
-    no: "",
+    no: "Hunn",
   },
   male: {
     en: "Male",
-    no: "",
+    no: "Mann",
   },
   "have account": {
     en: "Already have an account?",
-    no: "",
+    no: "Har du allerede en konto?",
   },
   "log In": {
     en: "Log In",
-    no: "",
+    no: "Logg Inn",
   },
 };
