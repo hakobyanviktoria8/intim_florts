@@ -9,7 +9,6 @@ import translation from "./translations";
 function App() {
   const [language, setLanguage] = useState("en");
 
-  console.log(language);
   return (
     <Provider language={language} translation={translation}>
       <ThemeProvider theme={theme}>
