@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addField } from "../../features/userDataSlice";
 import { addErrorMessage } from "../../features/errorMessageSlice";
 import { next, back } from "../../features/activeStepSlice";
+import { Translate } from "react-translated";
 
 export const Password = () => {
   const [password, setPassword] = useState("");
@@ -46,13 +47,13 @@ export const Password = () => {
   return (
     <Box className="userBox">
       <Typography variant="subtitle3" marginBottom={2} component="h2">
-        Create a password
+        <Translate text="password" />
       </Typography>
 
       <Input
         value={password}
         handleChange={handleChange}
-        placeholder="Password"
+        placeholder="password value"
         type="password"
       />
 

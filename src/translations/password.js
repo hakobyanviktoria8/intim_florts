@@ -1,11 +1,11 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  username: {
-    en: "Create a username",
+  password: {
+    en: "Create a password",
     no: "",
   },
-  "username value": {
-    en: "User name",
+  "password value": {
+    en: "Password",
     no: "",
   },
 };

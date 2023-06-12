@@ -80,7 +80,7 @@ export const Username = () => {
       <Input
         value={username}
         handleChange={handleChange}
-        placeholder="filed value"
+        placeholder="username value"
         type="text"
       />
 

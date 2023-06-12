@@ -2,6 +2,7 @@ import gender from "./gender";
 import age from "./age";
 import location from "./location";
 import username from "./username";
+import password from "./password";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -9,6 +10,7 @@ export default {
   ...age,
   ...location,
   ...username,
+  ...password,
 
   // common translate keys
   next: {
