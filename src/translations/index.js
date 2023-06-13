@@ -7,6 +7,7 @@ import email from "./email";
 import finishedSuccess from "./finishedSuccess";
 import cartComp from "./cartComp";
 import footer from "./footer";
+import errorMessage from "./errorMessage";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -19,6 +20,7 @@ export default {
   ...finishedSuccess,
   ...cartComp,
   ...footer,
+  ...errorMessage,
 
   // common translate keys
   next: {
