@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addField } from "../../features/userDataSlice";
 import { addErrorMessage } from "../../features/errorMessageSlice";
 import { next, back } from "../../features/activeStepSlice";
+import { useDebounce } from "../../hooks/useDebounce";
 
 export const Username = () => {
   const userData = useSelector((state) => state.userData?.value);
@@ -20,14 +21,13 @@ export const Username = () => {
 
   const dispatch = useDispatch();
   const errorMessage = useSelector((state) => state.errorMessage?.value);
+  const regex = /^[a-zA-Z0-9_]{0,12}$/;
+  const message = "usernameErrMessFE";
+  const useDebounceValue = useDebounce(username, 500, regex, message);
 
   const handleChange = (e) => {
     const value = e.target.value;
-    const regex = /^[a-zA-Z0-9_]{0,12}$/;
-
-    if (regex.test(value)) {
-      setUsername(value);
-    }
+    setUsername(value);
     dispatch(addErrorMessage(""));
   };
 
@@ -60,8 +60,8 @@ export const Username = () => {
   };
 
   const handleNext = () => {
-    if (username) {
-      dispatch(addField({ username: username }));
+    if (useDebounceValue) {
+      dispatch(addField({ username: useDebounceValue }));
       fetchData();
     }
   };
@@ -91,7 +91,7 @@ export const Username = () => {
         text={
           isLoading ? <CircularProgress size={20} color="primary" /> : "Next"
         }
-        disabled={!username || isLoading || !!errorMessage}
+        disabled={!useDebounceValue}
       />
 
       <ButtonBack onClick={handleBack} />
