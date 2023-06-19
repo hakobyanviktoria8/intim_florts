@@ -19,6 +19,7 @@ import { addField } from "../../features/userDataSlice";
 import { addErrorMessage } from "../../features/errorMessageSlice";
 import { next, back } from "../../features/activeStepSlice";
 import { Translate } from "react-translated";
+import { useDebounce } from "../../hooks/useDebounce";
 
 export const Email = () => {
   const userData = useSelector((state) => state.userData?.value);
@@ -34,6 +35,9 @@ export const Email = () => {
 
   const dispatch = useDispatch();
   const errorMessage = useSelector((state) => state.errorMessage?.value);
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const message = "emailErrMessFE";
+  const useDebounceValue = useDebounce(email, 500, regex, message);
 
   const handleChange = (e) => {
     setEmail(e.target.value);
@@ -54,7 +58,7 @@ export const Email = () => {
       const response = await axios.post(
         `${apiUrl}/${storedUid}`,
         {
-          email: email,
+          email: useDebounceValue,
           DOB: `${userData.year}-${userData.month}-${userData.day}`,
           location: userData.location,
           gender: userData.gender,
@@ -81,8 +85,8 @@ export const Email = () => {
   };
 
   const handleNext = () => {
-    if (email && checkboxes.years && checkboxes.read) {
-      dispatch(addField({ email: email }));
+    if (useDebounceValue && checkboxes.years && checkboxes.read) {
+      dispatch(addField({ email: useDebounceValue }));
       fetchCompleteData();
     }
   };
@@ -165,9 +169,7 @@ export const Email = () => {
             "Complete"
           )
         }
-        disabled={
-          !email || !checkboxes.years || !checkboxes.read || !!errorMessage
-        }
+        disabled={!useDebounceValue || !checkboxes.years || !checkboxes.read}
       />
 
       <ButtonBack onClick={handleBack} />

@@ -28,4 +28,8 @@ export default {
     en: "Privacy Statement.",
     no: "Personvernerklæring.",
   },
+  emailErrMessFE: {
+    en: "Invalid email address.",
+    no: "Ugyldig epostadresse.",
+  },
 };
