@@ -1,21 +1,28 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addErrorMessage } from "../features/errorMessageSlice";
 
-function useDebounce(value, delay, regex) {
+export const useDebounce = (value, delay, regex, message) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const timer = setTimeout(() => {
       if (regex.test(value)) {
         setDebouncedValue(value);
+        dispatch(addErrorMessage(""));
+      } else {
+        if (value) {
+          setDebouncedValue("");
+          dispatch(addErrorMessage(message));
+        }
       }
     }, delay || 500);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [value, delay, regex]);
+  }, [value, delay, regex, dispatch, message]);
 
   return debouncedValue;
-}
-
-export default useDebounce;
+};

@@ -10,27 +10,27 @@ import { addField } from "../../features/userDataSlice";
 import { addErrorMessage } from "../../features/errorMessageSlice";
 import { next, back } from "../../features/activeStepSlice";
 import { Translate } from "react-translated";
+import { useDebounce } from "../../hooks/useDebounce";
 
 export const Password = () => {
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
   const errorMessage = useSelector((state) => state.errorMessage?.value);
+  const regex = /^(?=.*\d).{6,16}$/;
+  const message = "passErrMessFE";
+  const useDebounceValue = useDebounce(password, 500, regex, message);
 
   const handleChange = (e) => {
     const value = e.target.value;
-    const regex = /^[a-zA-Z0-9_]{0,16}$/;
-
-    if (regex.test(value)) {
-      setPassword(value);
-    }
+    setPassword(value);
     dispatch(addErrorMessage(""));
   };
 
   const handleNext = () => {
-    if (password && password.length > 5) {
+    if (useDebounceValue) {
       try {
-        dispatch(addField({ password: password }));
+        dispatch(addField({ password: useDebounceValue }));
         dispatch(next());
         dispatch(addErrorMessage(""));
       } catch (error) {
@@ -62,7 +62,7 @@ export const Password = () => {
       <ButtonNext
         onClick={handleNext}
         text="Next"
-        disabled={!password || !!errorMessage}
+        disabled={!useDebounceValue}
       />
 
       <ButtonBack onClick={handleBack} />
