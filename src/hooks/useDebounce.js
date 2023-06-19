@@ -10,7 +10,7 @@ export const useDebounce = (value, delay, regex, message) => {
     const timer = setTimeout(() => {
       if (regex.test(value)) {
         setDebouncedValue(value);
-        dispatch(addErrorMessage(""));
+        // dispatch(addErrorMessage(""));
       } else {
         if (value) {
           setDebouncedValue("");

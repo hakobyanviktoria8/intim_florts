@@ -37,7 +37,7 @@ export const Username = () => {
 
       const response = await axios.post(
         `${apiUrl}/start`,
-        { username: username },
+        { username: useDebounceValue },
         {
           params: {
             site_key: "no01",
