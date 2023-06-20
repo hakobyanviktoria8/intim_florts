@@ -36,7 +36,7 @@ export const Email = () => {
   const errorMessage = useSelector((state) => state.errorMessage?.value);
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const message = "emailErrMessFE";
-  const useDebounceValue = useDebounce(email, 1000, regex, message);
+  const useDebounceValue = useDebounce(email, 500, regex, message);
 
   const handleChange = (e) => {
     setEmail(e.target.value);
@@ -84,7 +84,7 @@ export const Email = () => {
   };
 
   const handleNext = () => {
-    if (useDebounceValue && checkboxes.years && checkboxes.read) {
+    if (useDebounceValue && checkboxes.years && checkboxes.read && email) {
       dispatch(addField({ email: useDebounceValue }));
       fetchCompleteData();
     }
@@ -167,7 +167,8 @@ export const Email = () => {
           !useDebounceValue ||
           !checkboxes.years ||
           !checkboxes.read ||
-          isLoading
+          isLoading ||
+          !email
         }
       />
 
