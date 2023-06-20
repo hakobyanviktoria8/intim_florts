@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Input } from "../common/Input";
 import { ErrorMessage } from "../common/ErrorMessage";
 import { ButtonNext } from "../common/ButtonNext";
@@ -88,10 +88,9 @@ export const Username = () => {
 
       <ButtonNext
         onClick={handleNext}
-        text={
-          isLoading ? <CircularProgress size={20} color="primary" /> : "Next"
-        }
-        disabled={!useDebounceValue}
+        text="Next"
+        style={{ cursor: !isLoading ? "pointer" : "no-drop" }}
+        disabled={!useDebounceValue || isLoading}
       />
 
       <ButtonBack onClick={handleBack} />

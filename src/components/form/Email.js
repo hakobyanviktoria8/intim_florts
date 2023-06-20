@@ -6,7 +6,6 @@ import {
   FormGroup,
   Typography,
   Link,
-  CircularProgress,
 } from "@mui/material";
 import { Input } from "../common/Input";
 import { ButtonNext } from "../common/ButtonNext";
@@ -37,7 +36,7 @@ export const Email = () => {
   const errorMessage = useSelector((state) => state.errorMessage?.value);
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const message = "emailErrMessFE";
-  const useDebounceValue = useDebounce(email, 500, regex, message);
+  const useDebounceValue = useDebounce(email, 1000, regex, message);
 
   const handleChange = (e) => {
     setEmail(e.target.value);
@@ -162,14 +161,14 @@ export const Email = () => {
 
       <ButtonNext
         onClick={handleNext}
-        text={
-          isLoading ? (
-            <CircularProgress size={20} color="primary" />
-          ) : (
-            "Complete"
-          )
+        text="Complete"
+        style={{ cursor: !isLoading ? "pointer" : "no-drop" }}
+        disabled={
+          !useDebounceValue ||
+          !checkboxes.years ||
+          !checkboxes.read ||
+          isLoading
         }
-        disabled={!useDebounceValue || !checkboxes.years || !checkboxes.read}
       />
 
       <ButtonBack onClick={handleBack} />

@@ -2,11 +2,17 @@ import React from "react";
 import { Button } from "@mui/material";
 import { Translate } from "react-translated";
 
-export const ButtonNext = ({ text, disabled = false, onClick = null }) => {
+export const ButtonNext = ({
+  text,
+  disabled = false,
+  onClick = null,
+  style = {},
+}) => {
   return (
     <Button
       onClick={onClick}
       disabled={disabled}
+      style={style}
       sx={{
         height: "48px",
         width: "100%",
@@ -22,7 +28,7 @@ export const ButtonNext = ({ text, disabled = false, onClick = null }) => {
         },
       }}
     >
-      <Translate text="next" />
+      <Translate text={text} />
     </Button>
   );
 };

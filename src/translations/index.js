@@ -23,9 +23,13 @@ export default {
   ...errorMessage,
 
   // common translate keys
-  next: {
+  Next: {
     en: "Next",
     no: "Neste",
+  },
+  Complete: {
+    en: "Complete",
+    no: "Fullstendig",
   },
   back: {
     en: "Back",
