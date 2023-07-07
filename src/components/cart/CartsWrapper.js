@@ -1,120 +1,34 @@
 import React from "react";
-import { Box, styled, Typography } from "@mui/material";
-import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import SavedSearchIcon from "@mui/icons-material/SavedSearch";
-import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
-import { Translate } from "react-translated";
+import { Box, styled } from "@mui/material";
+import { CartComp } from "./CartComp";
+import { useWindowResize } from "../../hooks/useWindowResize";
 
 const CartsWrapperBox = styled(Box)(({ theme }) => ({
   display: "flex",
-  justifyContent: "center",
   marginTop: "48px",
+  flexWrap: "wrap",
+  justifyContent: "space-around",
+  marginBottom: "0",
 
   [theme.breakpoints.up("sm")]: {
-    marginBottom: "0",
+    justifyContent: "center",
   },
 
   [theme.breakpoints.up("lg")]: {
     marginTop: "100px",
-    flexWrap: "wrap",
-  },
-}));
-
-const CartsBox = styled(Box)(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
-
-  [theme.breakpoints.up("lg")]: {
-    flexDirection: "row",
-  },
-}));
-
-const CartBox = styled(Box)(({ theme }) => ({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  flexDirection: "column",
-  width: "164px",
-  textAlign: "center",
-  margin: "14px 10px",
-  fontSize: "14px",
-
-  [theme.breakpoints.up("sm")]: {
-    width: "250px",
-    fontSize: "18px",
-    margin: "14px 35px",
-
-    ":last-child": {
-      width: "270px",
-    },
-  },
-}));
-
-const CircleContainer = styled(Box)(() => ({
-  width: "64px",
-  height: "64px",
-  background: "white",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  borderRadius: "50%",
-  marginBottom: "24px",
-}));
-
-const CartTaxt = styled(Typography)(({ theme }) => ({
-  color: "primary.main",
-  fontWeight: "400",
-  lineHeight: "26px",
-  fontSize: "14px",
-
-  [theme.breakpoints.up("sm")]: {
-    fontSize: "18px",
   },
 }));
 
 export const CartsWrapper = () => {
+  const largeScreenCartsBox = [0, 1, 2, 3];
+  const smallScreenCartsBox = [0, 2, 1, 3];
+  const size = useWindowResize();
+
   return (
     <CartsWrapperBox>
-      <CartsBox>
-        <CartBox>
-          <CircleContainer>
-            <ChatOutlinedIcon color="secondary" fontSize="large" />
-          </CircleContainer>
-          <CartTaxt>
-            <Translate text="exchange" />
-          </CartTaxt>
-        </CartBox>
-
-        <CartBox>
-          <CircleContainer>
-            <PersonOutlineIcon color="secondary" fontSize="large" />
-          </CircleContainer>
-          <CartTaxt>
-            <Translate text="singles" />
-          </CartTaxt>
-        </CartBox>
-      </CartsBox>
-      <CartsBox>
-        <CartBox>
-          <CircleContainer>
-            <SavedSearchIcon color="secondary" fontSize="large" />
-          </CircleContainer>
-          <CartTaxt>
-            <Translate text="search tool" />
-          </CartTaxt>
-        </CartBox>
-
-        <CartBox>
-          <CircleContainer>
-            <CalendarMonthOutlinedIcon color="secondary" fontSize="large" />
-          </CircleContainer>
-          <CartTaxt>
-            <Translate text="events" />
-          </CartTaxt>
-        </CartBox>
-      </CartsBox>
+      {(size > 841 ? largeScreenCartsBox : smallScreenCartsBox).map((idx) => (
+        <CartComp cartId={idx} key={idx} />
+      ))}
     </CartsWrapperBox>
   );
 };
