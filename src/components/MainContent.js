@@ -16,8 +16,12 @@ const MainContentBox = styled(Box)(({ theme }) => ({
   maxWidth: "100%",
 
   [theme.breakpoints.up("lg")]: {
-    padding: "60px",
+    padding: "80px 30px 48px",
     justifyContent: "space-between",
+  },
+
+  [theme.breakpoints.up("xl")]: {
+    padding: "60px",
   },
 }));
 
