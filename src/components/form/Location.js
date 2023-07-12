@@ -47,11 +47,10 @@ const LocationBox = styled(Box)(() => ({
 
 export const Location = () => {
   const userData = useSelector((state) => state.userData?.value);
-  const [searchVal, setSearchVal] = useState("");
-  const [location, setLocation] = useState(userData.location || "");
-  const [bool, setBool] = useState(false);
-  const [locations, setLocations] = useState([]);
   const apiUrl = process.env.REACT_APP_API_URL;
+  const [searchVal, setSearchVal] = useState("");
+  const [locations, setLocations] = useState([]);
+  const [location, setLocation] = useState(userData.location || "");
 
   const dispatch = useDispatch();
 
@@ -59,12 +58,10 @@ export const Location = () => {
     const value = e.target.value;
     setSearchVal(value);
     setLocation("");
-    setBool(false);
   };
 
   const handleLocationSelect = (item) => {
     setLocation(item);
-    setSearchVal(item);
   };
 
   useEffect(() => {
@@ -86,9 +83,9 @@ export const Location = () => {
 
     if (searchVal !== "") {
       fetchData();
-      setBool(true);
     }
-  }, [searchVal, apiUrl, location, userData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchVal]);
 
   const handleNext = () => {
     if (location) {
@@ -127,7 +124,7 @@ export const Location = () => {
         <SearchIcon sx={{ color: "secondary.main", fontSize: "22px" }} />
       </SearchBox>
 
-      {locations.length > 0 && bool && (
+      {!location && searchVal && (
         <LocationBox>
           {locations.map((item) => (
             <MenuItem
