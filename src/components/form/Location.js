@@ -30,6 +30,19 @@ const LocationBox = styled(Box)(() => ({
   zIndex: "10",
   maxHeight: "250px",
   overflowY: "auto",
+  borderRadius: "10px",
+  boxShadow: "0  0 4px #cacaca",
+
+  "&::-webkit-scrollbar-thumb": {
+    backgroundColor: "#cacaca",
+    border: "4px solid transparent",
+    borderRadius: "8px",
+    backgroundClip: "padding-box",
+  },
+
+  "&::-webkit-scrollbar": {
+    width: "16px",
+  },
 }));
 
 export const Location = () => {
@@ -73,11 +86,7 @@ export const Location = () => {
 
     if (searchVal !== "") {
       fetchData();
-    }
-    if (location === "") {
       setBool(true);
-    } else {
-      setBool(false);
     }
   }, [searchVal, apiUrl, location, userData]);
 

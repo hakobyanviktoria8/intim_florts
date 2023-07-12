@@ -16,6 +16,7 @@
 
 .formControlBox label {
   background: white;
+  top: -5px;
 }
 
 .formControlBox .MuiSelect-select,
