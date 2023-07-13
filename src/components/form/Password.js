@@ -62,7 +62,7 @@ export const Password = () => {
       <ButtonNext
         onClick={handleNext}
         text="Next"
-        disabled={!useDebounceValue}
+        disabled={!useDebounceValue || !password}
       />
 
       <ButtonBack onClick={handleBack} />
