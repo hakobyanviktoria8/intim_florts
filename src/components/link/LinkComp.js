@@ -2,11 +2,10 @@ import { Link } from "@mui/material";
 import React from "react";
 import { Translate } from "react-translated";
 
-export const LinkComp = ({ link }) => {
+export const LinkComp = ({ link, onClick }) => {
   return (
     <Link
-      target="_blank"
-      href={link.href}
+      onClick={onClick}
       underline="none"
       sx={{
         ...link.sx,

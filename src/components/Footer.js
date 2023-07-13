@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Divider, Typography, styled } from "@mui/material";
 import { linksData } from "../dataUiPart.js/linksData";
 import { LinkComp } from "./link/LinkComp";
 import { Logo } from "./common/Logo";
 import { Translate } from "react-translated";
+import { ModalComp } from "./common/ModalComp";
 
 const FooterBox = styled(Box)(({ theme }) => ({
   fontSize: "14px",
@@ -20,14 +21,37 @@ const FooterBox = styled(Box)(({ theme }) => ({
 }));
 
 export const Footer = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalType, setModalType] = useState("");
+
+  const handleOpenModal = (type) => {
+    setModalOpen(true);
+    setModalType(type);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setModalType("");
+  };
+
   return (
     <FooterBox component="footer">
       <Logo />
       <Box>
         {linksData?.map((link) => (
-          <LinkComp key={link.id} link={link} />
+          <LinkComp
+            key={link.id}
+            link={link}
+            onClick={() => handleOpenModal(link.type)}
+          />
         ))}
       </Box>
+
+      <ModalComp
+        open={modalOpen}
+        handleClose={handleCloseModal}
+        type={modalType}
+      />
 
       <Divider sx={{ mb: 3, mt: 5, width: "100%" }} />
 

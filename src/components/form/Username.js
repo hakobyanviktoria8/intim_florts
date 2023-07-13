@@ -90,7 +90,7 @@ export const Username = () => {
         onClick={handleNext}
         text="Next"
         style={{ cursor: !isLoading ? "pointer" : "no-drop" }}
-        disabled={!useDebounceValue || isLoading}
+        disabled={!useDebounceValue || isLoading || !!errorMessage}
       />
 
       <ButtonBack onClick={handleBack} />

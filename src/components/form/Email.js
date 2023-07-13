@@ -19,6 +19,7 @@ import { addErrorMessage } from "../../features/errorMessageSlice";
 import { next, back } from "../../features/activeStepSlice";
 import { Translate } from "react-translated";
 import { useDebounce } from "../../hooks/useDebounce";
+import { ModalComp } from "../common/ModalComp";
 
 export const Email = () => {
   const userData = useSelector((state) => state.userData?.value);
@@ -28,6 +29,8 @@ export const Email = () => {
     read: false,
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalType, setModalType] = useState("");
 
   const apiUrl = process.env.REACT_APP_API_URL;
   const storedUid = localStorage.getItem("uid");
@@ -95,6 +98,16 @@ export const Email = () => {
     dispatch(addErrorMessage(""));
   };
 
+  const handleOpenModal = (type) => {
+    setModalOpen(true);
+    setModalType(type);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setModalType("");
+  };
+
   return (
     <Box className="userBox">
       <Typography variant="subtitle3" marginBottom={2} component="h2">
@@ -143,12 +156,14 @@ export const Email = () => {
               <Translate text="read and accept" />{" "}
               <Link
                 sx={{ color: "secondary.contrastText", textDecoration: "none" }}
+                onClick={() => handleOpenModal("terms")}
               >
                 <Translate text="terms of service" />
               </Link>{" "}
               <Translate text="and our" />{" "}
               <Link
                 sx={{ color: "secondary.contrastText", textDecoration: "none" }}
+                onClick={() => handleOpenModal("privacy")}
               >
                 <Translate text="privacy statement" />
               </Link>
@@ -158,6 +173,12 @@ export const Email = () => {
       </FormGroup>
 
       {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+
+      <ModalComp
+        open={modalOpen}
+        handleClose={handleCloseModal}
+        type={modalType}
+      />
 
       <ButtonNext
         onClick={handleNext}
